@@ -6,6 +6,14 @@ class ApplicationController < ActionController::Base
   # Require authentication and do not set a session cookie for JSON requests (API clients)
   ##before_action :authenticate_user!, :do_not_set_cookie, if: -> { request.format.json? }
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+
   private
 
   # Do not generate a session or session ID cookie

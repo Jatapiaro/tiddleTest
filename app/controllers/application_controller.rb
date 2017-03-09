@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery unless: -> { request.format.json? }
+
+	protect_from_forgery with: :null_session
+  	##protect_from_forgery unless: -> { request.format.json? }
 
   # Require authentication and do not set a session cookie for JSON requests (API clients)
-  before_action :authenticate_user!, :do_not_set_cookie, if: -> { request.format.json? }
+  ##before_action :authenticate_user!, :do_not_set_cookie, if: -> { request.format.json? }
 
   private
 
